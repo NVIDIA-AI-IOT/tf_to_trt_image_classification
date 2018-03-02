@@ -51,13 +51,6 @@ data transfer back from GPU.  Time does not include preprocessing.
 See **scripts/test_tf.py**, **scripts/test_trt.py**, and **src/test/test_trt.cu** 
 for implementation details.  To reproduce the timings run
 
-```
-python scripts/test_tf.py
-python scripts/test_trt.py
-```
-
-The timing results will be located in **data/test_output_tf.txt** and **data/test_output_trt.txt**.  Note
-that you must download and convert the models (as in the quick start) prior to running the benchmark scripts.
 
 <a name="download"></a>
 ## Download models and create frozen graphs
