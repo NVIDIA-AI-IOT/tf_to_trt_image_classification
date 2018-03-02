@@ -68,7 +68,7 @@ Next, because the TensorFlow models are provided in checkpoint format, we must c
 python scripts/models_to_frozen_graphs.py
 ```
 
-If you removed any models in the previous step, you must add ``'exclude': true`` to the corresponding item in the ``NETS`` dictionary located in [scripts/model_meta.py](scripts/model_meta.py). 
+If you removed any models in the previous step, you must add ``'exclude': true`` to the corresponding item in the [NETS](scripts/model_meta.py#L67) dictionary located in [scripts/model_meta.py](scripts/model_meta.py). 
 
 <a name="convert"></a>
 ## Convert frozen graph to TensorRT engine
@@ -111,7 +111,7 @@ For reference, the inputs to the example program are
 5. output node name
 6. preprocessing function (either vgg or inception)
 
-We provide two image label files in the [data folder](data/).  Some of the TensorFlow models were trained with an additional "background" class, causing the model to have 1001 outputs instead of 1000.  To determine the number of outputs for each model, reference the ``NETS`` variable in [scripts/model_meta.py](scripts/model_meta.py).
+We provide two image label files in the [data folder](data/).  Some of the TensorFlow models were trained with an additional "background" class, causing the model to have 1001 outputs instead of 1000.  To determine the number of outputs for each model, reference the [NETS](scripts/model_meta.py#L67) variable in [scripts/model_meta.py](scripts/model_meta.py).
 
 <a name="benchmark"></a>
 ## Benchmark all models
