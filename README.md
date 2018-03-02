@@ -69,7 +69,6 @@ source scripts/download_models.sh
 ``` 
 
 If there are any models you don't want to use, simply remove the URL from the model list in [scripts/download_models.sh](scripts/download_models.sh).  
-
 Next, because the TensorFlow models are provided in checkpoint format, we must convert them to frozen graphs for optimization with TensorRT.  Run the [scripts/models_to_frozen_graphs.py](scripts/models_to_frozen_graphs.py) script.  
 
 ```
@@ -81,16 +80,67 @@ If you removed any models in the previous step, you must add ``'exclude': true``
 <a name="convert"></a>
 ## Convert frozen graph to TensorRT engine
 
+Run the [scripts/convert_plan.py](scripts/convert_plan.py) script from the root directory of the project, referencing the [models table](#models) for relevant parameters.  For example, to convert the Inception V1 model run the following
+
+```
+python scripts/convert_plan.py data/frozen_graphs/inception_v1.pb data/plans/inception_v1.plan input 224 224 InceptionV1/Logits/SpatialSqueeze 1 0 float
+```
+
+The inputs to the convert_plan.py script are
+
+1. frozen graph path
+2. output plan path
+3. input node name
+4. input height
+5. input width
+6. output node name
+7. max batch size
+8. max workspace size
+9. data type (float or half)
+
+This script assumes single output single input image models, and may not work out of the box for models other than those in the table above.
+
 <a name="execute"></a>
 ## Execute TensorRT engine
+
+Call the [examples/classify_image](examples/classify_image) program from the root directory of the project, referencing the [models table](#models) for relevant parameters.  For example, to run the Inception V1 model converted as above
 
 ```
 ./build/examples/classify_image/classify_image data/images/gordon_setter.jpg data/plans/inception_v1.plan data/imagenet_labels_1001.txt input InceptionV1/Logits/SpatialSqueeze inception
 ```
-    
+
+For reference, the inputs to the example program are
+
+1. input image path
+2. plan file path
+3. labels file (one label per line, line number corresponds to index in output)
+4. input node name
+5. output node name
+6. preprocessing function (either vgg or inception)
+
+We provide two image label files in the [data folder](data/).  Some of the TensorFlow models were trained with an additional "background" class, causing the model to have 1001 outputs instead of 1000.  To determine the number of outputs for each model, reference the ``NETS`` variable in [scripts/model_meta.py](scripts/model_meta.py).
+
 <a name="benchmark"></a>
 ## Benchmark all models
+
+To benchmark all of the models, first convert all of the models that you [downloaded above](#download) into TensorRT engines.  Run the following script to convert all models
 
 ```
 python scripts/frozen_graphs_to_plans.py
 ```
+
+If you want to change parameters related to TensorRT optimization, just edit the [scripts/frozen_graphs_to_plans.py](scripts/frozen_graphs_to_plans.py) file.
+Next, to benchmark all of the models run the [scripts/test_trt.py(scripts/test_trt.py) script
+
+```
+python scripts/test_trt.py
+```
+
+Once finished, the timing results will be stored at **data/test_output_trt.txt**.
+If you want to also benchmark the TensorFlow models, simply run.
+
+```
+python scripts/test_tf.py
+```
+
+The results will be stored at **data/test_output_tf.txt**
