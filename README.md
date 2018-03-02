@@ -68,7 +68,12 @@ Next, because the TensorFlow models are provided in checkpoint format, we must c
 python scripts/models_to_frozen_graphs.py
 ```
 
-If you removed any models in the previous step, you must add ``'exclude': true`` to the corresponding item in the [NETS](scripts/model_meta.py#L67) dictionary located in [scripts/model_meta.py](scripts/model_meta.py). 
+If you removed any models in the previous step, you must add ``'exclude': true`` to the corresponding item in the [NETS](scripts/model_meta.py#L67) dictionary located in [scripts/model_meta.py](scripts/model_meta.py).  
+If you are following the instructions for executing engines below, you may also need some sample images.  Run the following script to download a few images from ImageNet.
+
+```
+source scripts/download_images.sh
+```
 
 <a name="convert"></a>
 ## Convert frozen graph to TensorRT engine
@@ -136,4 +141,4 @@ If you want to also benchmark the TensorFlow models, simply run.
 python scripts/test_tf.py
 ```
 
-The results will be stored at **data/test_output_tf.txt**
+The results will be stored at **data/test_output_tf.txt**.  This benchmarking script loads an example image as input, make sure you have downloaded the sample images as [above](#download).
