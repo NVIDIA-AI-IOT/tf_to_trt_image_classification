@@ -130,7 +130,7 @@ python scripts/frozen_graphs_to_plans.py
 ```
 
 If you want to change parameters related to TensorRT optimization, just edit the [scripts/frozen_graphs_to_plans.py](scripts/frozen_graphs_to_plans.py) file.
-Next, to benchmark all of the models run the [scripts/test_trt.py(scripts/test_trt.py) script
+Next, to benchmark all of the models run the [scripts/test_trt.py](scripts/test_trt.py) script
 
 ```
 python scripts/test_trt.py
