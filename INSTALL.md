@@ -8,8 +8,9 @@ Installation
   * TensorRT 3.0
 
 2. Install TensorFlow on Jetson TX2.
-  1. ...
-  2. ...
+  1. Download TensorFlow 1.5.0 / CUDA 9 / cuDNN 7 pip wheel from [here](https://drive.google.com/open?id=1BNOaSdfd6YyitTa4DLD7j4L45-Duo2LR).
+  2. Install TensorFlow using pip
+            sudo pip install tensorflow-1.5.0rc0-cp27-cp27mu-linux_aarch64.whl
 
 3. Install uff converter on Jetson TX2.
   1. Download TensorRT 3.0.4 for Ubuntu 16.04 and CUDA 9.0 tar package from https://developer.nvidia.com/nvidia-tensorrt-download.
