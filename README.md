@@ -48,7 +48,7 @@ slim model zoo.
 
 The times recorded include data transfer to GPU, network execution, and
 data transfer back from GPU.  Time does not include preprocessing. 
-See **scripts/test_tf.py**, **scripts/test_trt.py**, and **src/test/test_trt.cu** 
+See [scripts/test_tf.py](scripts/test_tf.py), [scripts/test_trt.py](scripts/test_trt.py), and [src/test/test_trt.cu](src/test/test_trt.cu) 
 for implementation details.  To reproduce the timings run
 
 
