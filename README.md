@@ -68,7 +68,7 @@ Run the following bash script to download all of the pretrained models.
 source scripts/download_models.sh
 ``` 
 
-If there are any models you don't want to use, simply remove their URL and name from the model lists in [scripts/download_models.sh](scripts/download_models.sh).  
+If there are any models you don't want to use, simply remove the URL from the model list in [scripts/download_models.sh](scripts/download_models.sh).  
 
 Next, because the TensorFlow models are provided in checkpoint format, we must convert them to frozen graphs for optimization with TensorRT.  Run the [scripts/models_to_frozen_graphs.py](scripts/models_to_frozen_graphs.py) script.  
 
