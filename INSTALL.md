@@ -24,8 +24,8 @@ Installation
 4. Clone and build this project
 
     ```
-    git clone --recursive https://gitlab-master.nvidia.com/jwelsh/trt_image_classification.git
-    cd trt_image_classification
+    git clone --recursive https://github.com/NVIDIA-Jetson/tf_to_trt_image_classification.git
+    cd tf_to_trt_image_classification
     mkdir build
     cd build
     cmake ..
