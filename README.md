@@ -4,43 +4,25 @@ TensorFlow->TensorRT Image Classification
 This contains examples, scripts and code related to image classification using TensorFlow models
 (from [here](https://github.com/tensorflow/models/tree/master/research/slim#Pretrained))
 converted to TensorRT.  Converting TensorFlow models to TensorRT offers significant performance
-gains on the Jetson TX2 as seen [below](#default_models).
+gains on the Jetson TX2 as seen [below](#models).
 
-<a name="quick_start"></a>
-## Quick Start
+<a name="toc"></a>
+## Table of Contents
 
-1. Follow the [installation guide](INSTALL.md).
-2. Download the pretrained TensorFlow models and example images.
+* [Model overview](#models)
 
-    ```
-    source scripts/download_models.sh
-    source scripts/download_images.sh
-    ```
+* [Download models and create frozen graphs](#download)
 
-3. Convert the pretrained models to frozen graphs.
+* [Convert frozen graph to TensorRT engine](#convert)
 
-    ```
-    python scripts/models_to_frozen_graphs.py
-    ```
+* [Execute TensorRT engine](#execute)
 
-4. Convert the frozen graphs to optimized TensorRT engines.
+* [Benchmark all models](#benchmark)
 
-    ```
-    python scripts/frozen_graphs_to_plans.py
-    ```
+<a name="models"></a>
+## Models
 
-5. Execute the Inception V1 model on a single image.
-
-    ```
-    ./build/examples/classify_image/classify_image data/images/gordon_setter.jpg data/plans/inception_v1.plan data/imagenet_labels_1001.txt input InceptionV1/Logits/SpatialSqueeze inception
-    ```
-
-For more details, read through the examples [link](examples/README.md).
-
-<a name="default_models"></a>
-## Default Models
-
-The table below shows various details related to the default models ported from the TensorFlow 
+The table below shows various details related to pretrained models ported from the TensorFlow 
 slim model zoo.  
 
 | <sub>Model</sub> | <sub>Input Size</sub> | <sub>TensorRT (TX2 / Half)</sub> | <sub>TensorRT (TX2 / Float)</sub> | <sub>TensorFlow (TX2 / Float)</sub> | <sub>Input Name</sub> | <sub>Output Name</sub> | <sub>Preprocessing Fn.</sub> |
@@ -76,3 +58,39 @@ python scripts/test_trt.py
 
 The timing results will be located in **data/test_output_tf.txt** and **data/test_output_trt.txt**.  Note
 that you must download and convert the models (as in the quick start) prior to running the benchmark scripts.
+
+<a name="download"></a>
+## Download models and create frozen graphs
+
+Run the following bash script to download all of the pretrained models. 
+
+```
+source scripts/download_models.sh
+``` 
+
+If there are any models you don't want to use, simply remove their URL and name from the model lists in [scripts/download_models.sh](scripts/download_models.sh).  
+
+Next, because the TensorFlow models are provided in checkpoint format, we must convert them to frozen graphs for optimization with TensorRT.  Run the [scripts/models_to_frozen_graphs.py](scripts/models_to_frozen_graphs.py) script.  
+
+```
+python scripts/models_to_frozen_graphs.py
+```
+
+If you removed any models in the previous step, you must add ``'exclude': true`` to the corresponding item in the ``NETS`` dictionary located in [scripts/model_meta.py](scripts/model_meta.py). 
+
+<a name="convert"></a>
+## Convert frozen graph to TensorRT engine
+
+<a name="execute"></a>
+## Execute TensorRT engine
+
+```
+./build/examples/classify_image/classify_image data/images/gordon_setter.jpg data/plans/inception_v1.plan data/imagenet_labels_1001.txt input InceptionV1/Logits/SpatialSqueeze inception
+```
+    
+<a name="benchmark"></a>
+## Benchmark all models
+
+```
+python scripts/frozen_graphs_to_plans.py
+```
