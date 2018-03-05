@@ -42,6 +42,9 @@ def frozenToPlan(frozen_graph_filename, plan_filename, input_name, input_height,
 
 if __name__ == '__main__':
 
+    if not os.path.exists('data/plans'):
+        os.makedirs('data/plans')
+
     if len(sys.argv) is not 10:
         print("usage: python convert_plan.py <frozen_graph_path> <output_plan_path> <input_name> <input_height>"
               " <input_width> <output_name> <max_batch_size> <max_workspace_size> <data_type>")

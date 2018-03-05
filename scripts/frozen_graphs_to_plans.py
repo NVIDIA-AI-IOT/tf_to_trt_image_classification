@@ -11,11 +11,11 @@ from convert_plan import frozenToPlan
 import os
 
 
-if not os.path.exists('data/plans'):
-    os.makedirs('data/plans')
-
 
 if __name__ == '__main__':
+
+    if not os.path.exists('data/plans'):
+        os.makedirs('data/plans')
 
     for net_name, net_meta in NETS.items():
         
