@@ -22,6 +22,10 @@ if __name__ == '__main__':
 
     with open(TEST_OUTPUT_PATH, 'w') as test_f:
         for net_name, net_meta in NETS.items():
+
+            if 'exclude' in net_meta.keys() and net_meta['exclude'] is True:
+                continue
+
             print("Testing %s" % net_name)
 
             with open(net_meta['frozen_graph_filename'], 'rb') as f:
