@@ -19,7 +19,7 @@ def frozenToPlan(frozen_graph_filename, plan_filename, input_name, input_height,
         frozen_file=frozen_graph_filename,
         output_nodes=[output_name],
         output_filename=TMP_UFF_FILENAME,
-        text=False
+        text=False,
     )
 
     # convert frozen graph to engine (plan)

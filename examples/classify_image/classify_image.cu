@@ -52,6 +52,13 @@ int main(int argc, char *argv[])
   /* load the engine */
   cout << "Loading TensorRT engine from plan file..." << endl;
   ifstream planFile(planFilename); 
+
+  if (!planFile.is_open())
+  {
+    cout << "Could not open plan file." << endl;
+    return 1;
+  }
+
   stringstream planBuffer;
   planBuffer << planFile.rdbuf();
   string plan = planBuffer.str();
@@ -63,6 +70,19 @@ int main(int argc, char *argv[])
   int inputBindingIndex, outputBindingIndex;
   inputBindingIndex = engine->getBindingIndex(inputName.c_str());
   outputBindingIndex = engine->getBindingIndex(outputName.c_str());
+
+  if (inputBindingIndex < 0)
+  {
+    cout << "Invalid input name." << endl;
+    return 1;
+  }
+
+  if (outputBindingIndex < 0)
+  {
+    cout << "Invalid output name." << endl;
+    return 1;
+  }
+
   Dims inputDims, outputDims;
   inputDims = engine->getBindingDimensions(inputBindingIndex);
   outputDims = engine->getBindingDimensions(outputBindingIndex);
@@ -73,6 +93,13 @@ int main(int argc, char *argv[])
   /* read image, convert color, and resize */
   cout << "Preprocessing input..." << endl;
   cv::Mat image = cv::imread(imageFilename, CV_LOAD_IMAGE_COLOR);
+
+  if (image.data == NULL)
+  {
+    cout << "Could not read image from file." << endl;
+    return 1;
+  }
+
   cv::cvtColor(image, image, cv::COLOR_BGR2RGB, 3);
   cv::resize(image, image, cv::Size(inputWidth, inputHeight));
 
@@ -119,6 +146,13 @@ int main(int argc, char *argv[])
     cout << sortedIndices[i] << " ";
 
   ifstream labelsFile(labelFilename);
+
+  if (!labelsFile.is_open())
+  {
+    cout << "\nCould not open label file." << endl;
+    return 1;
+  }
+
   vector<string> labelMap;
   string label;
   while(getline(labelsFile, label))
