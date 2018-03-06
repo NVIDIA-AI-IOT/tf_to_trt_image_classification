@@ -89,7 +89,10 @@ int main(int argc, char *argv[])
   else if (preprocessingFn == "inception")
     preprocessInception(inputDataHost, inputDims);
   else
-    cout << "Unsupported preprocessing function.  Results may not be correct.\n" << endl;
+  {
+    cout << "Invalid preprocessing function argument, must be vgg or inception. \n" << endl;
+    return 1;
+  }
 
   /* transfer to device */
   float *inputDataDevice, *outputDataDevice;
