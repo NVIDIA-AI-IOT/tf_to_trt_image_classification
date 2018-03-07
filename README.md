@@ -63,7 +63,7 @@ for implementation details.
    * TensorRT 3.0
 
 2. Install TensorFlow on Jetson TX2.
-   1. Download TensorFlow 1.5.0 pip wheel from [here](https://drive.google.com/open?id=1ZYUJqcFdJytdMCQ5bVDtb3KoTqc_cugG).
+   1. Download the TensorFlow 1.5.0 pip wheel from [here](https://drive.google.com/open?id=1ZYUJqcFdJytdMCQ5bVDtb3KoTqc_cugG).  This build of TensorFlow is provided as a convenience for the purposes of this project.
    2. Install TensorFlow using pip
   
             sudo pip install tensorflow-1.5.0rc0-cp27-cp27mu-linux_aarch64.whl
