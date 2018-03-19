@@ -62,13 +62,18 @@ for implementation details.
    * cuDNN
    * TensorRT 3.0
 
-2. Install TensorFlow on Jetson TX2.
+2. Install pip on Jetson TX2.
+    ```
+    sudo apt-get install python-pip
+    ```
+
+3. Install TensorFlow on Jetson TX2.
    1. Download the TensorFlow 1.5.0 pip wheel from [here](https://drive.google.com/open?id=1ZYUJqcFdJytdMCQ5bVDtb3KoTqc_cugG).  This build of TensorFlow is provided as a convenience for the purposes of this project.
    2. Install TensorFlow using pip
   
             sudo pip install tensorflow-1.5.0rc0-cp27-cp27mu-linux_aarch64.whl
 
-3. Install uff exporter on Jetson TX2.
+4. Install uff exporter on Jetson TX2.
    1. Download TensorRT 3.0.4 for Ubuntu 16.04 and CUDA 9.0 tar package from https://developer.nvidia.com/nvidia-tensorrt-download.
    2. Extract archive 
 
@@ -78,7 +83,7 @@ for implementation details.
 
             sudo pip install TensorRT-3.0.4/uff/uff-0.2.0-py2.py3-none-any.whl
 
-4. Clone and build this project
+5. Clone and build this project
 
     ```
     git clone --recursive https://github.com/NVIDIA-Jetson/tf_to_trt_image_classification.git
