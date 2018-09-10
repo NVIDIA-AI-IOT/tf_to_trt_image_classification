@@ -39,29 +39,29 @@ if __name__ == '__main__':
             tf_config.gpu_options.allow_growth = True
             tf_config.allow_soft_placement = True
 
-            tf_sess = tf.Session(config=tf_config, graph=graph)
-            tf_input = tf_sess.graph.get_tensor_by_name(net_meta['input_name'] + ':0')
-            tf_output = tf_sess.graph.get_tensor_by_name(net_meta['output_names'][0] + ':0')
+            with tf.Session(config=tf_config, graph=graph) as tf_sess:
+                tf_input = tf_sess.graph.get_tensor_by_name(net_meta['input_name'] + ':0')
+                tf_output = tf_sess.graph.get_tensor_by_name(net_meta['output_names'][0] + ':0')
 
-            # load and preprocess image
-            image = cv2.imread(TEST_IMAGE_PATH)
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            image = cv2.resize(image, (net_meta['input_width'], net_meta['input_height']))
-            image = net_meta['preprocess_fn'](image)
+                # load and preprocess image
+                image = cv2.imread(TEST_IMAGE_PATH)
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                image = cv2.resize(image, (net_meta['input_width'], net_meta['input_height']))
+                image = net_meta['preprocess_fn'](image)
 
 
-            # run network
-            times = []
-            for i in range(NUM_RUNS + 1):
-                t0 = time.time()
-                output = tf_sess.run([tf_output], feed_dict={
-                    tf_input: image[None, ...]
-                })[0]
-                t1 = time.time()
-                times.append(1000 * (t1 - t0))
-            avg_time = np.mean(times[1:]) # don't include first run
+                # run network
+                times = []
+                for i in range(NUM_RUNS + 1):
+                    t0 = time.time()
+                    output = tf_sess.run([tf_output], feed_dict={
+                        tf_input: image[None, ...]
+                    })[0]
+                    t1 = time.time()
+                    times.append(1000 * (t1 - t0))
+                avg_time = np.mean(times[1:]) # don't include first run
 
-            # parse output
-            top5 = net_meta['postprocess_fn'](output)
-            print(top5)
-            test_f.write("%s %s\n" % (net_name, avg_time))
+                # parse output
+                top5 = net_meta['postprocess_fn'](output)
+                print(top5)
+                test_f.write("%s %s\n" % (net_name, avg_time))
