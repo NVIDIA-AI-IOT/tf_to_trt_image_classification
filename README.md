@@ -2,7 +2,7 @@ TensorFlow->TensorRT Image Classification
 ===
 
 <p align="center">
-<img src="data/landing_graphic.jpg" alt="landing graphic" height="300px"/>
+<img src="data/landing_graphic.jpg" alt="landing graphic" height="150px"/>
 </p>
 
 This contains examples, scripts and code related to image classification using TensorFlow models
