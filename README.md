@@ -1,24 +1,20 @@
 TensorFlow->TensorRT Image Classification
 ===
 
+<p align="center">
+<img src="data/landing_graphic.jpg" alt="landing graphic" height="150px"/>
+</p>
+
 This contains examples, scripts and code related to image classification using TensorFlow models
 (from [here](https://github.com/tensorflow/models/tree/master/research/slim#Pretrained))
 converted to TensorRT.  Converting TensorFlow models to TensorRT offers significant performance
 gains on the Jetson TX2 as seen [below](#models).
 
-<a name="toc"></a>
-## Table of Contents
-
-* [Model overview](#models)
-
+* [Models](#models)
 * [Setup](#install)
-
 * [Download models and create frozen graphs](#download)
-
 * [Convert frozen graph to TensorRT engine](#convert)
-
 * [Execute TensorRT engine](#execute)
-
 * [Benchmark all models](#benchmark)
 
 <a name="models"></a>
